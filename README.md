@@ -22,9 +22,9 @@ The encryption engine provides authenticated, password-based encryption:
 ## Command-line usage
 
 ```bash
-javac -d build *.java
-java -cp build TransCryptorCli encrypt secret.txt        # -> secret.txt.tcr
-java -cp build TransCryptorCli decrypt secret.txt.tcr    # -> secret.txt
+mvn package
+java -jar target/transcryptor.jar encrypt secret.txt      # -> secret.txt.tcr
+java -jar target/transcryptor.jar decrypt secret.txt.tcr  # -> secret.txt
 ```
 
 The passphrase is read from the console, or from `$TRANSCRYPTOR_PASSWORD` when no
@@ -34,8 +34,8 @@ password or tampered file), `2` usage.
 ## Build & verify
 
 ```bash
-javac -d build *.java
-java -cp build CryptoSelfTest
+mvn package
+java -cp target/classes com.fortmoon.transcryptor.CryptoSelfTest
 ```
 
 Requires only a standard JDK (no external dependencies). `CryptoSelfTest` exercises the

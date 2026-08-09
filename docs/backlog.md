@@ -21,7 +21,7 @@ Each item links to its GitHub issue.
 ## Phase 3 — Modernize & harden
 - [x] [#13](https://github.com/csteel45/TransCryptor/issues/13) — Move classes out of the default package into com.fortmoon.transcryptor — **done**
 - [ ] [#14](https://github.com/csteel45/TransCryptor/issues/14) — Replace legacy idioms: Vector→List<File>, StringBuffer→StringBuilder, generics
-- [ ] [#15](https://github.com/csteel45/TransCryptor/issues/15) — Add a Maven build producing a runnable jar (Main-Class manifest)
+- [x] [#15](https://github.com/csteel45/TransCryptor/issues/15) — Add a Maven build producing a runnable jar (Main-Class manifest) — **done** (`mvn package` → `target/transcryptor.jar`)
 - [ ] [#16](https://github.com/csteel45/TransCryptor/issues/16) — Add JUnit 5 tests: encrypt→decrypt round-trip and directory walker
 - [ ] [#17](https://github.com/csteel45/TransCryptor/issues/17) — Add GitHub Actions CI (build + test on push/PR)
 - [ ] [#18](https://github.com/csteel45/TransCryptor/issues/18) — Replace System.out.println/printStackTrace with java.util.logging
