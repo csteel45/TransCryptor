@@ -19,7 +19,7 @@ Each item links to its GitHub issue.
 - [x] [#8](https://github.com/csteel45/TransCryptor/issues/8) — Add a headless CLI mode for scripted encrypt/decrypt — **done** (`TransCryptorCli`)
 
 ## Phase 3 — Modernize & harden
-- [ ] [#13](https://github.com/csteel45/TransCryptor/issues/13) — Move classes out of the default package into com.fortmoon.transcryptor
+- [x] [#13](https://github.com/csteel45/TransCryptor/issues/13) — Move classes out of the default package into com.fortmoon.transcryptor — **done**
 - [ ] [#14](https://github.com/csteel45/TransCryptor/issues/14) — Replace legacy idioms: Vector→List<File>, StringBuffer→StringBuilder, generics
 - [ ] [#15](https://github.com/csteel45/TransCryptor/issues/15) — Add a Maven build producing a runnable jar (Main-Class manifest)
 - [ ] [#16](https://github.com/csteel45/TransCryptor/issues/16) — Add JUnit 5 tests: encrypt→decrypt round-trip and directory walker

@@ -6,6 +6,7 @@
  * See the LICENSE file in the project root for the full license text.
  */
 
+package com.fortmoon.transcryptor;
 import java.io.Console;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;

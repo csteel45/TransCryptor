@@ -6,6 +6,7 @@
  * See the LICENSE file in the project root for the full license text.
  */
 
+package com.fortmoon.transcryptor;
 import java.io.*;
 import java.util.*;
 import javax.swing.*;
