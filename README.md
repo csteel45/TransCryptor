@@ -7,7 +7,8 @@ It is being refreshed — see the [ROADMAP](ROADMAP.md) and the open issues.
 ## Status
 
 - ✅ **Authenticated encryption engine** — PBKDF2 + AES-256-GCM (see below)
-- 🚧 GUI and CLI wiring for the engine (issues [#7](https://github.com/csteel45/TransCryptor/issues/7), [#8](https://github.com/csteel45/TransCryptor/issues/8), [#1](https://github.com/csteel45/TransCryptor/issues/1))
+- ✅ **Command-line interface** — `encrypt` / `decrypt` (see below)
+- 🚧 GUI wiring for the engine (issues [#7](https://github.com/csteel45/TransCryptor/issues/7), [#1](https://github.com/csteel45/TransCryptor/issues/1))
 
 ## Cryptography
 
@@ -17,6 +18,18 @@ The encryption engine provides authenticated, password-based encryption:
 - **AES-256-GCM** with a random 96-bit IV
 - A versioned `TCR1` file header (salt, IV, KDF parameters) authenticated as additional
   data, so a wrong password or any tampering with the header or ciphertext fails closed.
+
+## Command-line usage
+
+```bash
+javac -d build *.java
+java -cp build TransCryptorCli encrypt secret.txt        # -> secret.txt.tcr
+java -cp build TransCryptorCli decrypt secret.txt.tcr    # -> secret.txt
+```
+
+The passphrase is read from the console, or from `$TRANSCRYPTOR_PASSWORD` when no
+console is attached (scripts/CI). Exit codes: `0` success, `1` error (including a wrong
+password or tampered file), `2` usage.
 
 ## Build & verify
 

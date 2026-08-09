@@ -16,7 +16,7 @@ Each item links to its GitHub issue.
 - [x] [#11](https://github.com/csteel45/TransCryptor/issues/11) — Implement authenticated file encryption/decryption (AES-256-GCM + PBKDF2) — *flagship* — **done** (`Crypto`/`CryptoFormat`/`CryptoFiles`, verified by `CryptoSelfTest`)
 - [ ] [#12](https://github.com/csteel45/TransCryptor/issues/12) — Write output safely: temp file + atomic move + optional backup; never corrupt the original
 - [ ] [#7](https://github.com/csteel45/TransCryptor/issues/7) — Wire up the GUI actions (Open/TransCrypt/Decrypt/Clean/Undo) and label the placeholder buttons
-- [ ] [#8](https://github.com/csteel45/TransCryptor/issues/8) — Add a headless CLI mode for scripted encrypt/decrypt
+- [x] [#8](https://github.com/csteel45/TransCryptor/issues/8) — Add a headless CLI mode for scripted encrypt/decrypt — **done** (`TransCryptorCli`)
 
 ## Phase 3 — Modernize & harden
 - [ ] [#13](https://github.com/csteel45/TransCryptor/issues/13) — Move classes out of the default package into com.fortmoon.transcryptor
