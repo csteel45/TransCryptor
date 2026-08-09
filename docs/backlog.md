@@ -7,7 +7,7 @@ Each item links to its GitHub issue.
 - [ ] [#1](https://github.com/csteel45/TransCryptor/issues/1) — processFile() never encrypts or writes output — it reads bytes, sleeps, and discards them
 - [ ] [#2](https://github.com/csteel45/TransCryptor/issues/2) — Remove hardcoded `C:\devel\shack` path in TransCryptor.main
 - [ ] [#3](https://github.com/csteel45/TransCryptor/issues/3) — ProcessDirectory: use java.nio.file, handle null from File.list(), drop string path concatenation
-- [ ] [#4](https://github.com/csteel45/TransCryptor/issues/4) — OutputViewer corrupts non-ASCII output and mutates Swing off the EDT
+- [x] [#4](https://github.com/csteel45/TransCryptor/issues/4) — OutputViewer corrupts non-ASCII output and mutates Swing off the EDT — **done** (UTF-8 buffered decode, EDT-marshalled, capped)
 - [ ] [#5](https://github.com/csteel45/TransCryptor/issues/5) — Stop calling System.exit() from library methods; surface exceptions instead
 - [ ] [#6](https://github.com/csteel45/TransCryptor/issues/6) — Unify the two main() entry points into a single launcher
 - [ ] [#10](https://github.com/csteel45/TransCryptor/issues/10) — Launch the Swing UI on the Event Dispatch Thread; replace deprecated Frame.show()
