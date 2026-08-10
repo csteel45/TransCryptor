@@ -34,12 +34,11 @@ password or tampered file), `2` usage.
 ## Build & verify
 
 ```bash
-mvn package
-java -cp target/classes com.fortmoon.transcryptor.CryptoSelfTest
+mvn test        # JUnit 5: round-trip, wrong-password, and tamper detection
+mvn package     # -> target/transcryptor.jar
 ```
 
-Requires only a standard JDK (no external dependencies). `CryptoSelfTest` exercises the
-round-trip, wrong-password rejection, and tamper detection end to end.
+The application has **no runtime dependencies** (pure JDK); JUnit 5 is used only for tests.
 
 ## License
 
