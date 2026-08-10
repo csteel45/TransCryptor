@@ -36,7 +36,7 @@
         <configuration>
           <archive>
             <manifest>
-              <mainClass>com.fortmoon.transcryptor.TransCryptorCli</mainClass>
+              <mainClass>com.fortmoon.transcryptor.Main</mainClass>
             </manifest>
           </archive>
         </configuration>

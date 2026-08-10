@@ -38,13 +38,6 @@ public final class TransCryptorCli {
     private TransCryptorCli() {
     }
 
-    public static void main(String[] args) {
-        int code = run(args);
-        if (code != 0) {
-            System.exit(code);
-        }
-    }
-
     /** Runs one command and returns a process exit code (0 ok, 1 error, 2 usage). */
     static int run(String[] args) {
         if (args.length < 2) {
