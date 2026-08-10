@@ -19,6 +19,9 @@ The encryption engine provides authenticated, password-based encryption:
 - A versioned `TCR1` file header (salt, IV, KDF parameters) authenticated as additional
   data, so a wrong password or any tampering with the header or ciphertext fails closed.
 
+See [SECURITY.md](SECURITY.md) for the threat model — what this protects against and what
+it deliberately does not.
+
 ## Command-line usage
 
 ```bash

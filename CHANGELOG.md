@@ -6,17 +6,26 @@ based on [Keep a Changelog](https://keepachangelog.com/).
 ## [Unreleased]
 
 ### Added
-- **Authenticated encryption engine (#11).** PBKDF2-HMAC-SHA256 key derivation and
-  AES-256-GCM encryption, with a versioned `TCR1` file format whose header is
-  authenticated as additional data (AAD):
-  - `CryptoFormat` — the on-disk container format (magic/version/KDF/salt/IV).
-  - `Crypto` — `encrypt` / `decrypt` for byte arrays; fails closed on wrong password
-    or tampering; zeroizes key material.
-  - `CryptoFiles` — whole-file `encryptFile` / `decryptFile` helpers.
-  - `CryptoSelfTest` — standalone verification (round-trip, wrong password, ciphertext
-    and header tamper detection, file round-trip). All checks pass.
-- MIT `LICENSE`, `README`, and an improvement `ROADMAP` with a linked `docs/backlog.md`.
+- **Authenticated encryption engine (#11):** PBKDF2-HMAC-SHA256 + AES-256-GCM with a
+  versioned `TCR1` file format whose header is authenticated as AAD
+  (`CryptoFormat`, `Crypto`, `CryptoFiles`).
+- **Command-line interface (#8):** `transcryptor encrypt|decrypt <in> [out]`, with the
+  passphrase read from the console or `$TRANSCRYPTOR_PASSWORD`.
+- **Single `Main` launcher (#6):** GUI with no arguments, CLI with arguments.
+- **Maven build (#15):** `mvn package` produces a runnable `target/transcryptor.jar`.
+- **JUnit 5 test suite (#16):** round-trip, wrong-password, and tamper detection.
+- **GitHub Actions CI (#17):** `mvn verify` on push and pull request.
+- **`SECURITY.md`** — cryptographic design and threat model (#9).
 
-### Notes
-- The engine is verified via `CryptoSelfTest`; wiring it into the GUI and a CLI is
-  tracked by issues #7 and #8, and replacing the legacy no-op file loop by #1.
+### Changed
+- Sources moved into the `com.fortmoon.transcryptor` package (#13).
+- `OutputViewer` now decodes UTF-8, updates on the Event Dispatch Thread, and caps the
+  retained document (#4).
+- The Swing UI launches on the EDT via `setVisible(true)` instead of the deprecated
+  `show()` (#10).
+- File writes are crash-safe: temp file + atomic move, so the target is never corrupted,
+  including in-place encryption (#12).
+
+### Removed
+- The superseded, broken legacy console class — resolving the defects that lived only in
+  it (#1, #2, #3, #5, #14).
