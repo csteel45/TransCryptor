@@ -46,6 +46,9 @@ public class TransCryptorFrame extends javax.swing.JFrame {
    private javax.swing.JPanel progressPanel;
    private javax.swing.JLabel progressLabel;
    private javax.swing.JProgressBar progressBar;
+   private java.io.File selectedFile;
+   private static final java.util.logging.Logger LOG =
+         java.util.logging.Logger.getLogger(TransCryptorFrame.class.getName());
 
    /** Creates new form TransCryptorFrame */
    public TransCryptorFrame() {
@@ -142,13 +145,15 @@ public class TransCryptorFrame extends javax.swing.JFrame {
       mainPanel.setLayout (new javax.swing.BoxLayout (mainPanel, 1));
       mainPanel.setPreferredSize (new java.awt.Dimension(500, 520));
       mainPanel.setBorder (new javax.swing.border.EtchedBorder());
-      jButton2.setText ("jButton1");
+      jButton2.setText ("Encrypt File...");
+      jButton2.addActionListener (e -> runCrypt(true));
 
       jPanel6.add (jButton2);
 
       jPanel4.add (jPanel6);
 
-      jButton1.setText ("jButton1");
+      jButton1.setText ("Decrypt File...");
+      jButton1.addActionListener (e -> runCrypt(false));
       jPanel4.add (jButton1);
       mainPanel.add (jPanel4);
 
@@ -163,7 +168,8 @@ public class TransCryptorFrame extends javax.swing.JFrame {
       jScrollPane1.setViewportView (outputTextArea);
 
       jPanel5.add (jScrollPane1, java.awt.BorderLayout.CENTER);
-      jButton3.setText ("jButton1");
+      jButton3.setText ("Choose File...");
+      jButton3.addActionListener (e -> chooseFile());
       jPanel7.add(jButton3);
       jPanel5.add(jPanel7, java.awt.BorderLayout.NORTH);
       mainPanel.add(jPanel5);
@@ -187,6 +193,15 @@ public class TransCryptorFrame extends javax.swing.JFrame {
       progressPanel.add (progressBar);
 
       getContentPane().add(progressPanel, java.awt.BorderLayout.SOUTH);
+
+      openMenuItem.addActionListener (e -> chooseFile());
+      transCryptMenuItem.addActionListener (e -> runCrypt(true));
+      decryptMenuItem.addActionListener (e -> runCrypt(false));
+      cleanMenuItem.addActionListener (e -> outputTextArea.setText(""));
+      undoMenuItem.setEnabled (false);
+      aboutMenuItem.addActionListener (e -> showAbout());
+      gettingStartedMenuItem.addActionListener (e -> showGettingStarted());
+
       setJMenuBar(jMenuBar);
    }
 
@@ -196,6 +211,102 @@ public class TransCryptorFrame extends javax.swing.JFrame {
    /** Exit the Application */
    private void exitForm(java.awt.event.WindowEvent evt) {
       System.exit (0);
+   }
+
+   private void chooseFile() {
+      JFileChooser chooser = new JFileChooser(
+            selectedFile != null ? selectedFile.getParentFile() : new java.io.File("."));
+      chooser.setDialogTitle("Choose a file");
+      if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+         selectedFile = chooser.getSelectedFile();
+         System.out.println("Selected: " + selectedFile.getAbsolutePath());
+      }
+   }
+
+   private char[] promptPassphrase(String title) {
+      JPasswordField field = new JPasswordField(24);
+      int choice = JOptionPane.showConfirmDialog(
+            this, field, title, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+      return choice == JOptionPane.OK_OPTION ? field.getPassword() : null;
+   }
+
+   /** Runs an encrypt or decrypt of the selected file off the EDT, with progress and error reporting. */
+   private void runCrypt(final boolean encrypt) {
+      if (selectedFile == null) {
+         JOptionPane.showMessageDialog(this, "Choose a file first.",
+               "TransCryptor", JOptionPane.INFORMATION_MESSAGE);
+         return;
+      }
+      final char[] passphrase = promptPassphrase(encrypt ? "Passphrase to encrypt" : "Passphrase to decrypt");
+      if (passphrase == null) {
+         return;
+      }
+      final java.nio.file.Path in = selectedFile.toPath();
+      final java.nio.file.Path out = encrypt
+            ? in.resolveSibling(selectedFile.getName() + CryptoFiles.ENCRYPTED_EXTENSION)
+            : defaultDecryptTarget(in);
+      setBusy(true);
+      new SwingWorker<Void, Void>() {
+         private Exception failure;
+
+         @Override protected Void doInBackground() {
+            try {
+               if (encrypt) {
+                  CryptoFiles.encryptFile(in, out, passphrase);
+               } else {
+                  CryptoFiles.decryptFile(in, out, passphrase);
+               }
+            } catch (Exception e) {
+               failure = e;
+            } finally {
+               java.util.Arrays.fill(passphrase, '\0');
+            }
+            return null;
+         }
+
+         @Override protected void done() {
+            setBusy(false);
+            if (failure == null) {
+               System.out.println((encrypt ? "Encrypted -> " : "Decrypted -> ") + out);
+            } else {
+               LOG.log(java.util.logging.Level.WARNING, "TransCrypt operation failed", failure);
+               String message = failure instanceof javax.crypto.AEADBadTagException
+                     ? "Wrong passphrase, or the file has been tampered with."
+                     : String.valueOf(failure.getMessage());
+               JOptionPane.showMessageDialog(TransCryptorFrame.this, message,
+                     "TransCryptor", JOptionPane.ERROR_MESSAGE);
+            }
+         }
+      }.execute();
+   }
+
+   private static java.nio.file.Path defaultDecryptTarget(java.nio.file.Path in) {
+      String s = in.toString();
+      if (s.endsWith(CryptoFiles.ENCRYPTED_EXTENSION)) {
+         return java.nio.file.Paths.get(s.substring(0, s.length() - CryptoFiles.ENCRYPTED_EXTENSION.length()));
+      }
+      return java.nio.file.Paths.get(s + ".dec");
+   }
+
+   private void setBusy(boolean busy) {
+      progressBar.setIndeterminate(busy);
+      progressLabel.setText(busy ? "Working..." : "Progress");
+      jButton1.setEnabled(!busy);
+      jButton2.setEnabled(!busy);
+   }
+
+   private void showAbout() {
+      JOptionPane.showMessageDialog(this,
+            "TransCryptor - file encryption (AES-256-GCM + PBKDF2).\nMIT licensed.",
+            "About TransCryptor", JOptionPane.INFORMATION_MESSAGE);
+   }
+
+   private void showGettingStarted() {
+      JOptionPane.showMessageDialog(this,
+            "1. Choose File... to pick a file.\n"
+          + "2. Encrypt File... creates a .tcr file; Decrypt File... restores it.\n"
+          + "You will be prompted for a passphrase.",
+            "Getting Started", JOptionPane.INFORMATION_MESSAGE);
    }
    /**
    * @param args the command line arguments

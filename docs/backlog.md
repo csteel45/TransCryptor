@@ -15,7 +15,7 @@ Each item links to its GitHub issue.
 ## Phase 2 — Implement the feature (encryption)
 - [x] [#11](https://github.com/csteel45/TransCryptor/issues/11) — Implement authenticated file encryption/decryption (AES-256-GCM + PBKDF2) — *flagship* — **done** (`Crypto`/`CryptoFormat`/`CryptoFiles`, verified by `CryptoSelfTest`)
 - [x] [#12](https://github.com/csteel45/TransCryptor/issues/12) — Write output safely: temp file + atomic move; never corrupt the original — **done**
-- [ ] [#7](https://github.com/csteel45/TransCryptor/issues/7) — Wire up the GUI actions (Open/TransCrypt/Decrypt/Clean/Undo) and label the placeholder buttons
+- [x] [#7](https://github.com/csteel45/TransCryptor/issues/7) — Wire up the GUI actions and label the placeholder buttons — **done** (SwingWorker + passphrase dialog + progress)
 - [x] [#8](https://github.com/csteel45/TransCryptor/issues/8) — Add a headless CLI mode for scripted encrypt/decrypt — **done** (`TransCryptorCli`)
 
 ## Phase 3 — Modernize & harden
@@ -24,7 +24,7 @@ Each item links to its GitHub issue.
 - [x] [#15](https://github.com/csteel45/TransCryptor/issues/15) — Add a Maven build producing a runnable jar (Main-Class manifest) — **done** (`mvn package` → `target/transcryptor.jar`)
 - [x] [#16](https://github.com/csteel45/TransCryptor/issues/16) — Add JUnit 5 tests: encrypt→decrypt round-trip and directory walker — **done** (`CryptoTest`, 8 tests)
 - [x] [#17](https://github.com/csteel45/TransCryptor/issues/17) — Add GitHub Actions CI (build + test on push/PR) — **done**
-- [ ] [#18](https://github.com/csteel45/TransCryptor/issues/18) — Replace System.out.println/printStackTrace with java.util.logging
+- [x] [#18](https://github.com/csteel45/TransCryptor/issues/18) — Replace diagnostic println/printStackTrace with java.util.logging — **done**
 - [x] [#9](https://github.com/csteel45/TransCryptor/issues/9) — Expand README, add CHANGELOG and a crypto threat-model note — **done** (`SECURITY.md`, CHANGELOG)
 
 ## Labels

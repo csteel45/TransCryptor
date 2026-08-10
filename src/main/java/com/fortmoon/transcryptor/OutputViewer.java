@@ -30,6 +30,8 @@ public class OutputViewer extends OutputStream {
 
     /** Maximum characters retained in the text area; older text is trimmed. */
     private static final int MAX_CHARS = 200_000;
+    private static final java.util.logging.Logger LOG =
+            java.util.logging.Logger.getLogger(OutputViewer.class.getName());
 
     private JTextArea textArea;
     private final ByteArrayOutputStream lineBuffer = new ByteArrayOutputStream(128);
@@ -44,7 +46,7 @@ public class OutputViewer extends OutputStream {
                 Document doc = textArea.getDocument();
                 doc.remove(0, doc.getLength());
             } catch (Exception e) {
-                System.err.println("OutputViewer.clear exception: " + e.getMessage());
+                LOG.log(java.util.logging.Level.WARNING, "OutputViewer.clear failed", e);
             }
         });
     }
