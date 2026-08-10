@@ -23,7 +23,7 @@ Each item links to its GitHub issue.
 - [ ] [#14](https://github.com/csteel45/TransCryptor/issues/14) — Replace legacy idioms: Vector→List<File>, StringBuffer→StringBuilder, generics
 - [x] [#15](https://github.com/csteel45/TransCryptor/issues/15) — Add a Maven build producing a runnable jar (Main-Class manifest) — **done** (`mvn package` → `target/transcryptor.jar`)
 - [x] [#16](https://github.com/csteel45/TransCryptor/issues/16) — Add JUnit 5 tests: encrypt→decrypt round-trip and directory walker — **done** (`CryptoTest`, 8 tests)
-- [ ] [#17](https://github.com/csteel45/TransCryptor/issues/17) — Add GitHub Actions CI (build + test on push/PR)
+- [x] [#17](https://github.com/csteel45/TransCryptor/issues/17) — Add GitHub Actions CI (build + test on push/PR) — **done**
 - [ ] [#18](https://github.com/csteel45/TransCryptor/issues/18) — Replace System.out.println/printStackTrace with java.util.logging
 - [ ] [#9](https://github.com/csteel45/TransCryptor/issues/9) — Expand README, add CHANGELOG and a crypto threat-model note
 
