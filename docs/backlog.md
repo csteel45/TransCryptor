@@ -14,7 +14,7 @@ Each item links to its GitHub issue.
 
 ## Phase 2 — Implement the feature (encryption)
 - [x] [#11](https://github.com/csteel45/TransCryptor/issues/11) — Implement authenticated file encryption/decryption (AES-256-GCM + PBKDF2) — *flagship* — **done** (`Crypto`/`CryptoFormat`/`CryptoFiles`, verified by `CryptoSelfTest`)
-- [ ] [#12](https://github.com/csteel45/TransCryptor/issues/12) — Write output safely: temp file + atomic move + optional backup; never corrupt the original
+- [x] [#12](https://github.com/csteel45/TransCryptor/issues/12) — Write output safely: temp file + atomic move; never corrupt the original — **done**
 - [ ] [#7](https://github.com/csteel45/TransCryptor/issues/7) — Wire up the GUI actions (Open/TransCrypt/Decrypt/Clean/Undo) and label the placeholder buttons
 - [x] [#8](https://github.com/csteel45/TransCryptor/issues/8) — Add a headless CLI mode for scripted encrypt/decrypt — **done** (`TransCryptorCli`)
 

@@ -89,4 +89,15 @@ class CryptoTest {
         CryptoFiles.decryptFile(enc, dec, pw());
         assertArrayEquals(Files.readAllBytes(in), Files.readAllBytes(dec));
     }
+
+    @Test
+    void inPlaceEncryptDecryptRoundTrips(@TempDir Path dir) throws Exception {
+        byte[] data = random(2048);
+        Path f = dir.resolve("secret.bin");
+        Files.write(f, data);
+        CryptoFiles.encryptFile(f, f, pw()); // encrypt in place
+        assertFalse(Arrays.equals(data, Files.readAllBytes(f)));
+        CryptoFiles.decryptFile(f, f, pw()); // decrypt in place
+        assertArrayEquals(data, Files.readAllBytes(f));
+    }
 }
