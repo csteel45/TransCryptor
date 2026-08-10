@@ -201,7 +201,11 @@ public class TransCryptorFrame extends javax.swing.JFrame {
    * @param args the command line arguments
    */
    public static void main (String args[]) {
-      new TransCryptorFrame().show();
+      javax.swing.SwingUtilities.invokeLater(() -> {
+         TransCryptorFrame frame = new TransCryptorFrame();
+         frame.setDefaultCloseOperation(javax.swing.JFrame.EXIT_ON_CLOSE);
+         frame.setVisible(true);
+      });
    }
 
 }

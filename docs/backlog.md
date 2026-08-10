@@ -10,7 +10,7 @@ Each item links to its GitHub issue.
 - [x] [#4](https://github.com/csteel45/TransCryptor/issues/4) — OutputViewer corrupts non-ASCII output and mutates Swing off the EDT — **done** (UTF-8 buffered decode, EDT-marshalled, capped)
 - [ ] [#5](https://github.com/csteel45/TransCryptor/issues/5) — Stop calling System.exit() from library methods; surface exceptions instead
 - [ ] [#6](https://github.com/csteel45/TransCryptor/issues/6) — Unify the two main() entry points into a single launcher
-- [ ] [#10](https://github.com/csteel45/TransCryptor/issues/10) — Launch the Swing UI on the Event Dispatch Thread; replace deprecated Frame.show()
+- [x] [#10](https://github.com/csteel45/TransCryptor/issues/10) — Launch the Swing UI on the Event Dispatch Thread; replace deprecated Frame.show() — **done**
 
 ## Phase 2 — Implement the feature (encryption)
 - [x] [#11](https://github.com/csteel45/TransCryptor/issues/11) — Implement authenticated file encryption/decryption (AES-256-GCM + PBKDF2) — *flagship* — **done** (`Crypto`/`CryptoFormat`/`CryptoFiles`, verified by `CryptoSelfTest`)
